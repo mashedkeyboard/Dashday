@@ -1,2 +1,9 @@
+appdirs==1.4.0
 argcomplete==1.4.1
+pillow==3.3.0
+pyserial==3.1.1
+python-escpos==2.1.0
+pyusb==1.0.0
 PyYAML==3.11
+qrcode==5.3
+six==1.10.0
