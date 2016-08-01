@@ -1,0 +1,26 @@
+[General]
+# ---
+# Defaults:
+# HelloMyNameIs = user (used for personalized output)
+# Vendor = 0x04b8 (Seiko Epson)
+# Product = 0x0202 (TM-T88IV Reciept Printer M129)
+# ---
+HelloMyNameIs = user
+Vendor = 0x04b8
+Product = 0x0202
+[Weather]
+# ---
+# Defaults:
+# TextRegionCode = 514 (London and South East)
+# ForecastLocation = 3672 (RAF Northolt)
+# DataPointKey = YourKeyHere (sign up for DataPoint at www.metoffice.gov.uk/datapoint and get a key)
+# ---
+TextRegionCode = 514
+ForecastLocation = 3672
+DataPointKey = YourKeyHere
+[Debug]
+# ---
+# Don't touch these unless you really know what you're doing.
+# ---
+TestMode = false
+LogLevel = INFO
