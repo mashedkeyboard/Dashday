@@ -35,10 +35,10 @@ def main():
     # Does the user even have a configuration file?
     if os.path.isfile('dashday.cfg') != True:
         # Check for test mode specified in the environment variables
-        if "DASHDAY-TESTMODE" in os.environ and os.environ['DASHDAY-TESTMODE'] == '1':
+        if "DASHDAY_TESTMODE" in os.environ and os.environ['DASHDAY_TESTMODE'] == '1':
             try:
                 maincfg = {'HelloMyNameIs' : "TestModeUsr"}
-                datapointcfg = {'TextRegionCode': 514, 'ForecastLocation': 3672, 'DataPointKey': os.environ['DASHDAY-DPKEY']}
+                datapointcfg = {'TextRegionCode': 514, 'ForecastLocation': 3672, 'DataPointKey': os.environ['DASHDAY_DPKEY']}
                 debugcfg = {'TestMode': "1", 'LogLevel': "DEBUG"}
             except KeyError:
                 handlers.criterr("Incorrectly set test environment variables. Please set up Dashday correctly for testing.")
