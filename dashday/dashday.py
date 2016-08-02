@@ -11,7 +11,7 @@ from escpos import *
 def main():
 
     # Let's make logging work. Formatting the log here
-    logFormatter = logging.Formatter("%(asctime)s: %(levelname)s: %(message)s")
+    logFormatter = logging.Formatter("%(asctime)s: %(levelname)s: %(message)s","%m/%d/%Y %I:%M:%S %p")
     rootLogger = logging.getLogger()
     
     # Output the log to a file
@@ -91,8 +91,8 @@ def main():
     # Time to reset the font
     p.set("LEFT", "A", "normal", 1, 1)
     
-    # Now let's fetch the more localized and up-to-date but raw data 
-    p.image('resources\\images\\weather\\' + wtypes[datapoint.fetchFrcWthrType(datapointcfg['ForecastLocation'],datapointcfg['DataPointKey'])])
+    # Now let's fetch the more localized and up-to-date but raw data - with an accurate 'real' OS path?
+    p.image(os.path.join(os.path.realpath('resources/images/weather') + os.path.sep + wtypes[datapoint.fetchFrcWthrType(datapointcfg['ForecastLocation'],datapointcfg['DataPointKey'])]))
 
     # And now we can find the text forecast from the Met Office's DataPoint API
     p.text(datapoint.fetchRegionFrcAsText(datapointcfg['TextRegionCode'],datapointcfg['DataPointKey']))
