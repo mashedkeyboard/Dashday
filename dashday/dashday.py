@@ -67,6 +67,7 @@ def main():
         logging.debug("Initialized dummy printer")
     else:
         p = printer.Usb(maincfg['Vendor'],maincfg['Product'])
+        logging.debug("Initialized USB printer")
 
     # Now we can set up the different weather types and their respective filenames for the image to print
     wtypes = {'NA' : 'questionmark.png',
