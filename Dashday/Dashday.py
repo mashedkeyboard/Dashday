@@ -14,7 +14,7 @@ def main():
 
     # Does the user even have a configuration file?
     if os.path.isfile('dashday.cfg') != True:
-        logging.warning('Dashday.cfg not found. Initiating onboarding process.')
+        handlers.criterr('dashday.cfg not found. Add dashday.cfg to your directory to continue.')
         # Put onboarding stuff here at some point
 
     configfile.read('dashday.cfg')

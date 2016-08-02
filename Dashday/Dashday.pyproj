@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>ccda2e25-3069-4609-92ae-92bd5ba8ea5f</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Dashday.py</StartupFile>
+    <StartupFile>dashday.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -25,7 +25,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Dashday.py" />
+    <Compile Include="dashday.py" />
     <Compile Include="datapoint.py">
       <SubType>Code</SubType>
     </Compile>
