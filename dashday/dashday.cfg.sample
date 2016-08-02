@@ -22,5 +22,5 @@ DataPointKey = YourKeyHere
 # ---
 # Don't touch these unless you really know what you're doing.
 # ---
-TestMode = false
-LogLevel = INFO
+TestMode = 0
+LogLevel = WARNING

@@ -4,33 +4,62 @@ import logging
 import handlers
 import datapoint
 from time import strftime
-import os.path
+import os
+import sys
 from escpos import *
 
 def main():
+
+    # Let's make logging work. Formatting the log here
+    logFormatter = logging.Formatter("%(asctime)s: %(levelname)s: %(message)s")
+    rootLogger = logging.getLogger()
+    
+    # Output the log to a file
+    fileHandler = logging.FileHandler("dashday.log")
+    fileHandler.setFormatter(logFormatter)
+    rootLogger.addHandler(fileHandler)
+    rootLogger.setLevel(logging.INFO) # Output info to the log by default
+
+    # And output it to the console too
+    consoleHandler = logging.StreamHandler()
+    consoleHandler.setFormatter(logFormatter)
+    consoleHandler.setLevel(logging.WARNING) # Only output warnings to stdout
+    rootLogger.addHandler(consoleHandler)
+
+    # Wahey
+    logging.info('Dashday process started')
 
     # Create a new configuration file instance
     configfile = configparser.ConfigParser()
 
     # Does the user even have a configuration file?
     if os.path.isfile('dashday.cfg') != True:
-        handlers.criterr('dashday.cfg not found. Add dashday.cfg to your directory to continue.')
-        # Put onboarding stuff here at some point
-
-    configfile.read('dashday.cfg')
-    datapointcfg = configfile['Weather']
-    maincfg = configfile['General']
-    debugcfg = configfile['Debug']
+        # Check for test mode specified in the environment variables
+        if "DASHDAY-TESTMODE" in os.environ and os.environ['DASHDAY-TESTMODE'] == '1':
+            try:
+                maincfg = {'HelloMyNameIs' : "TestModeUsr"}
+                datapointcfg = {'TextRegionCode': 514, 'ForecastLocation': 3672, 'DataPointKey': os.environ['DASHDAY-DPKEY']}
+                debugcfg = {'TestMode': "1", 'LogLevel': "DEBUG"}
+            except KeyError:
+                handlers.criterr("Incorrectly set test environment variables. Please set up Dashday correctly for testing.")
+            logging.warning("Running in environment variable based test mode.")
+        else:
+            handlers.criterr('dashday.cfg not found. Add dashday.cfg to your directory to continue.')
+            # Put onboarding stuff here at some point
+    else:
+        configfile.read('dashday.cfg')
+        datapointcfg = configfile['Weather']
+        maincfg = configfile['General']
+        debugcfg = configfile['Debug']
 
     # And let's start the logging!
     numeric_level = getattr(logging, debugcfg['LogLevel'].upper(), None)
     if not isinstance(numeric_level, int):
         raise ValueError('Invalid log level: %s' % loglevel)
-    logging.basicConfig(format='%(asctime)s: %(levelname)s: %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p',filename='dashday.log',level=numeric_level)
-    logging.info('Dashday process started')
+    rootLogger.setLevel(numeric_level)
 
     # Connects to the printer (unless test mode is enabled, in which case starts a dummy instance)
-    if debugcfg['testmode']:
+    if debugcfg['testmode'] == "1":
         logging.warning('Dashday is in test mode. Nothing will actually be printed - you\'ll just see the output to the printer on the screen.')
         p = printer.Dummy()
     else:
