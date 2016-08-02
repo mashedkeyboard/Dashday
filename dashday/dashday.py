@@ -38,7 +38,7 @@ def main():
         if "DASHDAY_TESTMODE" in os.environ and os.environ['DASHDAY_TESTMODE'] == '1':
             try:
                 maincfg = {'HelloMyNameIs' : "TestModeUsr"}
-                datapointcfg = {'TextRegionCode': 514, 'ForecastLocation': 3672, 'DataPointKey': os.environ['DASHDAY_DPKEY']}
+                datapointcfg = {'TextRegionCode': '514', 'ForecastLocation': '3672', 'DataPointKey': os.environ['DASHDAY_DPKEY']}
                 debugcfg = {'TestMode': "1", 'LogLevel': "DEBUG"}
             except KeyError:
                 handlers.criterr("Incorrectly set test environment variables. Please set up Dashday correctly for testing.")
