@@ -59,7 +59,7 @@ def main():
     rootLogger.setLevel(numeric_level)
 
     # Connects to the printer (unless test mode is enabled, in which case starts a dummy instance)
-    if debugcfg['testmode'] == "1":
+    if debugcfg['TestMode'] == "1":
         logging.warning('Dashday is in test mode. Nothing will actually be printed - you\'ll just see the output to the printer on the screen.')
         p = printer.Dummy()
     else:
