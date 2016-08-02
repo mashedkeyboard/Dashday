@@ -62,6 +62,7 @@ def main():
     if debugcfg['TestMode'] == "1":
         logging.warning('Dashday is in test mode. Nothing will actually be printed - you\'ll just see the output to the printer on the screen.')
         p = printer.Dummy()
+        logging.debug("Initialized dummy printer")
     else:
         p = printer.Usb(maincfg['Vendor'],maincfg['Product'])
 
@@ -82,6 +83,7 @@ def main():
            '27' : 'heavysnow.png',
            '30' : 'thunder.png',
     }
+    logging.debug("Set up weather types")
 
 
     # Setup the printer for the beautiful header, and then print it
