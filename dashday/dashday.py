@@ -13,7 +13,7 @@ def main():
     # Let's make logging work. Formatting the log here
     logFormatter = logging.Formatter("%(asctime)s: %(levelname)s: %(message)s","%m/%d/%Y %I:%M:%S %p")
     rootLogger = logging.getLogger()
-    rootLogger.setLevel(logging.DEBUG) # Make sure the root logger doesn't block any potential output to the fileHandler or consoleHandler
+    rootLogger.setLevel(logging.NOTSET) # Make sure the root logger doesn't block any potential output to the fileHandler or consoleHandler
     
     # Output the log to a file
     fileHandler = logging.FileHandler("dashday.log")
