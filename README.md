@@ -19,7 +19,7 @@ Dashday is written in **Python 3.5**, and uses the wonderful [Meteocons](http://
 2. `cd dashday/dashday`
 3. `pip install -r requirements.txt`
 4. `cp dashday.cfg.sample dashday.cfg`
-5. Add your own values into dashday.cfg - remember to get the Met Office API key from their [DataPoint](https://www.metoffice.gov.uk/datapoint) site. To find your printer's vendor and product IDs, [use the python-escpos documentation](https://python-escpos.readthedocs.io/en/latest/user/usage.html#usb-printer). Note that at this time Dashday only supports USB printers.
+5. Add your own values into dashday.cfg - remember to get the Met Office API key from their [DataPoint](http://www.metoffice.gov.uk/datapoint) site. To find your printer's vendor and product IDs, [use the python-escpos documentation](https://python-escpos.readthedocs.io/en/latest/user/usage.html#usb-printer). Note that at this time Dashday only supports USB printers.
 6. Run dashday.py! It should (hopefully) print out your report.
 
 ## Is that it?
