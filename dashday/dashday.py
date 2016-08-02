@@ -101,7 +101,7 @@ def main():
     p.cut()
 
     # If we're in test mode, print the results to the screen
-    if debugcfg['testmode']:
+    if debugcfg['TestMode']:
         print(str(p.output))
        
     # Call the "wahey I'm done!" handler
