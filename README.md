@@ -1,4 +1,6 @@
 # Dashday
+[![Build Status](https://travis-ci.org/mashedkeyboard/Dashday.svg?branch=master)](https://travis-ci.org/mashedkeyboard/Dashday)
+
 Your day's dashboard, printed.
 
 ## What is Dashday?
