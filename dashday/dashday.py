@@ -56,7 +56,8 @@ def main():
     numeric_level = getattr(logging, debugcfg['LogLevel'].upper(), None)
     if not isinstance(numeric_level, int):
         raise ValueError('Invalid log level: %s' % loglevel)
-    rootLogger.setLevel(numeric_level)
+    consoleHandler.setLevel(numeric_level)
+    fileHandler.setLevel(numeric_level)
 
     # Connects to the printer (unless test mode is enabled, in which case starts a dummy instance)
     if debugcfg['TestMode'] == "1":
