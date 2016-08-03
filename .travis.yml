@@ -1,7 +1,13 @@
 language: python
 python:
+  - "3.2"
+  - "3.3"
+  - "3.4"
   - "3.5"
+  - "3.5-dev"
+  - "nightly"
+  - "pypy3"
 # command to install dependencies
 install: "cd dashday && pip install -r requirements.txt"
 # command to run tests
-script: "nosetests dashday.py"
+script: "nosetests dashday.py --with-yanc"
