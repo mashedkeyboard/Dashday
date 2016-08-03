@@ -7,11 +7,11 @@ Your day's dashboard, printed.
 Dashday is a project designed to print a wonderful summary of your day ahead on any thermal or dot matrix printer (receipt printer to those uninitiated) that supports the Epson standard [ESC/POS](https://reference.epson-biz.com/modules/ref_escpos/index.php?content_id=2).
 
 ## What does Dashday use?
-Dashday is written in **Python 3.5**, and uses the wonderful [Meteocons](http://www.alessioatzeni.com/meteocons/) and [python-escpos](https://github.com/python-escpos/python-escpos) library.
+Dashday is written in **Python**, and compiled against 3.5, but should work with **3.3 and upwards** or PyPy3. It uses a very slightly modified version of the wonderful [Meteocons](http://www.alessioatzeni.com/meteocons/) icon set for weather icons in the output, and the [python-escpos](https://github.com/python-escpos/python-escpos) library for printer communication.
 
 ## What prerequisites are there?
 * A USB ESC/POS compatible thermal or dot matrix printer
-* [Python 3.5](https://www.python.org/downloads/) or later
+* [Python 3.3](https://www.python.org/downloads/) or later (or [PyPy3](http://pypy.org/))
 * [Pip, the Python package manager](https://pip.pypa.io/en/stable/installing/)
 
 ## How do I work this thing?
