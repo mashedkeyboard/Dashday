@@ -171,6 +171,8 @@ def main():
     if debugcfg['TestMode']:
         print(str(p.output))
         logging.debug("Printed dummy output to stdout")
+        logging.debug("Debug logging enabled, printing to log:") # this would only appear if they did have debug logging enabled so yeah
+        logging.debug(str(p.output))
        
     # Call the "wahey I'm done!" handler
     handlers.closed()
