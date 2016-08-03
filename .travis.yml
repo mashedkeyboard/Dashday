@@ -10,4 +10,4 @@ python:
 # command to install dependencies
 install: "cd dashday && pip install -r requirements.txt"
 # command to run tests
-script: "nosetests dashday.py --with-yanc"
+script: "nosetests dashday.py"
