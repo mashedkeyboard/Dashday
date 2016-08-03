@@ -5,6 +5,7 @@ import handlers
 import datapoint
 from time import strftime
 import os
+import usb
 import sys
 from escpos import *
 
@@ -118,7 +119,10 @@ def main():
         p = printer.Dummy()
         logging.debug("Initialized dummy printer")
     else:
-        p = printer.Usb(maincfg['Vendor'],maincfg['Product'])
+        try:
+            p = printer.Usb(maincfg['Vendor'],maincfg['Product'])
+        except usb.core.NoBackendError:
+            handlers.criterr("Could not initialize printer. Check a printer matching the vendor and product in the config file is actually connected, and relaunch Dashday.")
         logging.debug("Initialized USB printer")
 
     # Now we can set up the different weather types and their respective filenames for the image to print
