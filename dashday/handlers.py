@@ -1,5 +1,6 @@
 import logging
 from time import strftime
+
 def closed():
     logging.info('Dashday process stopped')
 

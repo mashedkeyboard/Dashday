@@ -38,7 +38,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="dashday.cfg.sample" />
-    <Content Include="dashday.cfg" />
     <Content Include="requirements.txt" />
   </ItemGroup>
   <ItemGroup>

@@ -8,6 +8,54 @@ import os
 import sys
 from escpos import *
 
+def cfgconfig():
+    
+    # Setup help for people who don't understand my gibberish variable names
+    confhelp = {'hellomynameis': 'Your name goes here. Ideally just your first name. It personalizes the output.', 
+                'vendor': 'Your ESC/POS printer\'s vendor reference as supplied by lsusb. For more info, please see the python-escpos docs: https://python-escpos.readthedocs.io/en/latest/user/usage.html#usb-printer',
+                'product': 'Your ESC/POS printer\'s product reference as supplied by lsusb. For more info, please see the python-escpos docs: https://python-escpos.readthedocs.io/en/latest/user/usage.html#usb-printer',
+                'textregioncode': 'Your region code as obtained from the Met Office DataPoint API. For more info, please see the Met Office docs: http://www.metoffice.gov.uk/datapoint/product/regional-text-forecast/detailed-documentation#Regional%20forecasts%20site%20list%20data%20feed',
+                'forecastlocation': 'A specific weather station code as obtained from the Met Office DataPoint API. For more info, please see the Met Office docs: http://www.metoffice.gov.uk/datapoint/support/documentation/uk-locations-site-list-detailed-documentation',
+                'datapointkey': 'Your Met Office DataPoint API key. If you don\'t have one yet, obtain one from the Met Office at http://www.metoffice.gov.uk/datapoint/.',
+    }
+
+    # Setup time!
+    print("Welcome to Dashday :)")
+    config = configparser.ConfigParser()
+    if os.path.isfile('dashday.cfg') == True: # let's see if the user has already configured dashday
+        config.read('dashday.cfg')
+        logging.info("Found dashday.cfg, basing defaults off it")
+    elif os.path.isfile('dashday.cfg.sample') == True: # we need the sample to read from because I cba to rewrite all the values here
+        config.read('dashday.cfg.sample')
+        logging.info("Found dashday.cfg.sample, basing defaults off it")
+    else: # why did they delete the sample before configuring...
+        logging.critical("Could not find dashday.cfg.sample")
+        print("Oh noes! Your dashday.cfg.sample and dashday.cfg are both missing. We need one or the other to help you set up.\nTry redownloading Dashday from GitHub.\nPress any key to exit.")
+        input()
+        exit()
+    print("Let's get set up.")
+    print("---")
+    for cat in config: # for every category in the configuration file
+        if cat != 'Debug': # perhaps we shouldn't show them the debug category
+            for key in config[cat]: # for every other category and all it's values
+                value = config[cat][key] # hacky solution to dictionaries not being able to do "for key,value", but it works
+                while True: # loop back if not done
+                    print(key + " [" + value + "] (type H for help):")
+                    newval = input() # yay we can actually start setting things!
+                    if newval.upper() == "H":
+                        print("Configuration help for " + key + ": " + confhelp[key]) # configuration help is fetched here, and then the while loop brings us back to the original question
+                    else:
+                        if newval == "":
+                            newval = value
+                        config[cat][key] = newval
+                        break # break from the while loop
+
+    logging.info("Trying to write to configuration file")
+    with open('dashday.cfg', 'w') as configfile:
+        config.write(configfile)
+        logging.info("Successfully wrote to dashday.cfg")
+    print("Brilliant, all done! :) Let's get started.")
+
 def main():
 
     # Let's make logging work. Formatting the log here
@@ -45,8 +93,12 @@ def main():
                 handlers.criterr("Incorrectly set test environment variables. Please set up Dashday correctly for testing.")
             logging.warning("Running in environment variable based test mode.")
         else:
-            handlers.criterr('dashday.cfg not found. Add dashday.cfg to your directory to continue.')
-            # Put onboarding stuff here at some point
+            logging.debug('dashday.cfg not found. Beginning setup.')
+            cfgconfig()
+            configfile.read('dashday.cfg')
+            datapointcfg = configfile['Weather']
+            maincfg = configfile['General']
+            debugcfg = configfile['Debug']
     else:
         configfile.read('dashday.cfg')
         datapointcfg = configfile['Weather']
