@@ -121,7 +121,8 @@ def main():
     else:
         try:
             p = printer.Usb(maincfg['Vendor'],maincfg['Product'])
-        except usb.core.NoBackendError:
+        except (usb.core.NoBackendError,escpos.exceptions.USBNotFoundError) as e:
+            logging.debug(e)
             handlers.criterr("Could not initialize printer. Check a printer matching the vendor and product in the config file is actually connected, and relaunch Dashday.")
         logging.debug("Initialized USB printer")
 
