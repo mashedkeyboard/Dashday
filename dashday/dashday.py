@@ -9,6 +9,15 @@ import usb
 import sys
 from escpos import *
 
+def getCfg():
+    try:
+        configfile.read('dashday.cfg')
+    except PermissionError:
+        handlers.criterr("Permissions error on dashday.cfg. Please ensure you have write permissions for the directory.")
+    datapointcfg = configfile['Weather']
+    maincfg = configfile['General']
+    debugcfg = configfile['Debug']
+
 def cfgconfig():
     
     # Setup help for people who don't understand my gibberish variable names
@@ -53,7 +62,10 @@ def cfgconfig():
 
     logging.info("Trying to write to configuration file")
     with open('dashday.cfg', 'w') as configfile:
-        config.write(configfile)
+        try:
+            config.write(configfile)
+        except PermissionError:
+            handlers.criterr("Permissions error on dashday.cfg. Please ensure you have write permissions for the directory.")
         logging.info("Successfully wrote to dashday.cfg")
     print("Brilliant, all done! :) Let's get started.")
 
@@ -63,18 +75,21 @@ def main():
     logFormatter = logging.Formatter("%(asctime)s: %(levelname)s: %(message)s","%m/%d/%Y %I:%M:%S %p")
     rootLogger = logging.getLogger()
     rootLogger.setLevel(logging.NOTSET) # Make sure the root logger doesn't block any potential output to the fileHandler or consoleHandler
-    
-    # Output the log to a file
-    fileHandler = logging.FileHandler("dashday.log")
-    fileHandler.setFormatter(logFormatter)
-    fileHandler.setLevel(logging.INFO) # Output info to the log by default
-    rootLogger.addHandler(fileHandler)
 
-    # And output it to the console too
+    # And output it to the console
     consoleHandler = logging.StreamHandler()
     consoleHandler.setFormatter(logFormatter)
     consoleHandler.setLevel(logging.WARNING) # Only output warnings to stdout
     rootLogger.addHandler(consoleHandler)
+    
+    # Finally, output the log to a file
+    try:
+        fileHandler = logging.FileHandler("dashday.log")
+        fileHandler.setFormatter(logFormatter)
+        fileHandler.setLevel(logging.INFO) # Output info to the log by default
+        rootLogger.addHandler(fileHandler)
+    except PermissionError:
+        handlers.criterr("Permissions error on dashday.log. Please ensure you have write permissions for the directory.")
 
     # Wahey
     logging.info('Dashday process started')
@@ -96,15 +111,9 @@ def main():
         else:
             logging.debug('dashday.cfg not found. Beginning setup.')
             cfgconfig()
-            configfile.read('dashday.cfg')
-            datapointcfg = configfile['Weather']
-            maincfg = configfile['General']
-            debugcfg = configfile['Debug']
+            getCfg()
     else:
-        configfile.read('dashday.cfg')
-        datapointcfg = configfile['Weather']
-        maincfg = configfile['General']
-        debugcfg = configfile['Debug']
+        getCfg()
 
     # And let's start the logging!
     numeric_level = getattr(logging, debugcfg['LogLevel'].upper(), None)
