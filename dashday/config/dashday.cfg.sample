@@ -10,10 +10,10 @@ Vendor = 0x04b8
 Product = 0x0202
 [Plugins]
 # ---
-# Enter the names of the plugins you want to enable in here.
+# Enter the names of the plugins you want to enable in here, separated by commas.
 # The source files need to be put in plugins/[pluginname]
 # ---
-weather
+toload = weather
 [Debug]
 # ---
 # Don't touch these unless you really know what you're doing.
