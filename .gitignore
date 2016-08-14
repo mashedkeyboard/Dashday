@@ -59,3 +59,5 @@ ENV/
 # Local config files and logs for Dashday
 /Dashday/dashday.cfg
 /Dashday/dashday.log
+*.cfg
+/.vs/config/applicationhost.config

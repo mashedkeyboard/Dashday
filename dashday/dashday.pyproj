@@ -26,23 +26,51 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="dashday.py" />
-    <Compile Include="datapoint.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="handlers.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="pluginloader.py" />
+    <Compile Include="plugins\weather\datapoint.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="plugins\weather\main.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="plugins\weather\__init__.py" />
+    <Compile Include="plugins\__init__.py" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="{2af0f10d-7135-4994-9156-5d01c9c11b7e}\3.5" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="dashday.cfg.sample" />
+    <Content Include="config\dashday.cfg" />
+    <Content Include="config\dashday.cfg.sample" />
+    <Content Include="dashday.log" />
+    <Content Include="resources\images\weather\cloudy.png" />
+    <Content Include="resources\images\weather\drizzle.png" />
+    <Content Include="resources\images\weather\fog.png" />
+    <Content Include="resources\images\weather\hail.png" />
+    <Content Include="resources\images\weather\heavyrain.png" />
+    <Content Include="resources\images\weather\heavysnow.png" />
+    <Content Include="resources\images\weather\lightrain.png" />
+    <Content Include="resources\images\weather\lightsnow.png" />
+    <Content Include="resources\images\weather\mist.png" />
+    <Content Include="resources\images\weather\overcast.png" />
+    <Content Include="resources\images\weather\ptlycloudy.png" />
+    <Content Include="resources\images\weather\sleet.png" />
+    <Content Include="resources\images\weather\sunny.png" />
+    <Content Include="resources\images\weather\thunder.png" />
+    <Content Include="config\weather.cfg.sample" />
     <Content Include="requirements.txt" />
+    <Content Include="config\weather.cfg" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="config\" />
+    <Folder Include="plugins\" />
+    <Folder Include="plugins\weather\" />
     <Folder Include="resources\" />
     <Folder Include="resources\images\" />
+    <Folder Include="resources\images\weather\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

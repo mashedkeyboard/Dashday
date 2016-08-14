@@ -1,0 +1,10 @@
+[Info]
+# ---
+# Defaults:
+# TextRegionCode = 514 (London and South East)
+# ForecastLocation = 3672 (RAF Northolt)
+# DataPointKey = YourKeyHere (sign up for DataPoint at www.metoffice.gov.uk/datapoint and get a key)
+# ---
+TextRegionCode = 514
+ForecastLocation = 3672
+DataPointKey = YourKeyHere

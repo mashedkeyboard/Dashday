@@ -2,74 +2,34 @@
 import configparser
 import logging
 import handlers
-import datapoint
+import pluginloader
 from time import strftime
 import os
 import usb
 import sys
 from escpos import *
 
+# Get configuration details from the config file
 def getCfg():
+    global maincfg
+    global pluginlist
+    global debugcfg
+
     try:
-        configfile.read('dashday.cfg')
+        configfile.read('config/dashday.cfg')
     except PermissionError:
         handlers.criterr("Permissions error on dashday.cfg. Please ensure you have write permissions for the directory.")
-    datapointcfg = configfile['Weather']
     maincfg = configfile['General']
+    pluginlist = configfile['Plugins']['toload'].split(',')
     debugcfg = configfile['Debug']
 
-def cfgconfig():
-    
-    # Setup help for people who don't understand my gibberish variable names
-    confhelp = {'hellomynameis': 'Your name goes here. Ideally just your first name. It personalizes the output.', 
-                'vendor': 'Your ESC/POS printer\'s vendor reference as supplied by lsusb. For more info, please see the python-escpos docs: https://python-escpos.readthedocs.io/en/latest/user/usage.html#usb-printer',
-                'product': 'Your ESC/POS printer\'s product reference as supplied by lsusb. For more info, please see the python-escpos docs: https://python-escpos.readthedocs.io/en/latest/user/usage.html#usb-printer',
-                'textregioncode': 'Your region code as obtained from the Met Office DataPoint API. For more info, please see the Met Office docs: http://www.metoffice.gov.uk/datapoint/product/regional-text-forecast/detailed-documentation#Regional%20forecasts%20site%20list%20data%20feed',
-                'forecastlocation': 'A specific weather station code as obtained from the Met Office DataPoint API. For more info, please see the Met Office docs: http://www.metoffice.gov.uk/datapoint/support/documentation/uk-locations-site-list-detailed-documentation',
-                'datapointkey': 'Your Met Office DataPoint API key. If you don\'t have one yet, obtain one from the Met Office at http://www.metoffice.gov.uk/datapoint/.',
-    }
-
-    # Setup time!
-    print("Welcome to Dashday :)")
-    config = configparser.ConfigParser()
-    if os.path.isfile('dashday.cfg') == True: # let's see if the user has already configured dashday
-        config.read('dashday.cfg')
-        logging.info("Found dashday.cfg, basing defaults off it")
-    elif os.path.isfile('dashday.cfg.sample') == True: # we need the sample to read from because I cba to rewrite all the values here
-        config.read('dashday.cfg.sample')
-        logging.info("Found dashday.cfg.sample, basing defaults off it")
-    else: # why did they delete the sample before configuring...
-        logging.critical("Could not find dashday.cfg.sample")
-        print("Oh noes! Your dashday.cfg.sample and dashday.cfg are both missing. We need one or the other to help you set up.\nTry redownloading Dashday from GitHub.\nPress any key to exit.")
-        input()
-        exit()
-    print("Let's get set up.")
-    print("---")
-    for cat in config: # for every category in the configuration file
-        if cat != 'Debug': # perhaps we shouldn't show them the debug category
-            for key in config[cat]: # for every other category and all it's values
-                value = config[cat][key] # hacky solution to dictionaries not being able to do "for key,value", but it works
-                while True: # loop back if not done
-                    print(key + " [" + value + "] (type H for help):")
-                    newval = input() # yay we can actually start setting things!
-                    if newval.upper() == "H":
-                        print("Configuration help for " + key + ": " + confhelp[key]) # configuration help is fetched here, and then the while loop brings us back to the original question
-                    else:
-                        if newval == "":
-                            newval = value
-                        config[cat][key] = newval
-                        break # break from the while loop
-
-    logging.info("Trying to write to configuration file")
-    with open('dashday.cfg', 'w') as configfile:
-        try:
-            config.write(configfile)
-        except PermissionError:
-            handlers.criterr("Permissions error on dashday.cfg. Please ensure you have write permissions for the directory.")
-        logging.info("Successfully wrote to dashday.cfg")
-    print("Brilliant, all done! :) Let's get started.")
-
+# Main functionality! Woot!
 def main():
+
+    global maincfg
+    global pluginlist
+    global debugcfg
+    global configfile
 
     # Let's make logging work. Formatting the log here
     logFormatter = logging.Formatter("%(asctime)s: %(levelname)s: %(message)s","%m/%d/%Y %I:%M:%S %p")
@@ -98,20 +58,18 @@ def main():
     configfile = configparser.ConfigParser()
 
     # Does the user even have a configuration file?
-    if os.path.isfile('dashday.cfg') != True:
+    if os.path.isfile('config/dashday.cfg') != True:
         # Check for test mode specified in the environment variables
         if "DASHDAY_TESTMODE" in os.environ and os.environ['DASHDAY_TESTMODE'] == '1':
             try:
                 maincfg = {'HelloMyNameIs' : "TestModeUsr"}
-                datapointcfg = {'TextRegionCode': '514', 'ForecastLocation': '3672', 'DataPointKey': os.environ['DASHDAY_DPKEY']}
+                pluginlist = ['weather']
                 debugcfg = {'TestMode': "1", 'LogLevel': "DEBUG"}
             except KeyError:
                 handlers.criterr("Incorrectly set test environment variables. Please set up Dashday correctly for testing.")
             logging.warning("Running in environment variable based test mode.")
         else:
-            logging.debug('dashday.cfg not found. Beginning setup.')
-            cfgconfig()
-            getCfg()
+            handlers.criterr('dashday.cfg not found. Please configure dashday before launch.')
     else:
         getCfg()
 
@@ -135,25 +93,6 @@ def main():
             handlers.criterr("Could not initialize printer. Check a printer matching the vendor and product in the config file is actually connected, and relaunch Dashday.")
         logging.debug("Initialized USB printer")
 
-    # Now we can set up the different weather types and their respective filenames for the image to print
-    wtypes = {'NA' : 'questionmark.png',
-           '1' : 'sunny.png',
-           '3' : 'ptlycloudy.png',
-           '5' : 'mist.png',
-           '6' : 'fog.png',
-           '7' : 'cloudy.png',
-           '8' : 'overcast.png',
-           '11' : 'drizzle.png',
-           '12' : 'lightrain.png',
-           '15' : 'heavyrain.png',
-           '18' : 'sleet.png',
-           '21' : 'hail.png',
-           '24' : 'lightsnow.png',
-           '27' : 'heavysnow.png',
-           '30' : 'thunder.png',
-    }
-    logging.debug("Set up weather types")
-
 
     # Setup the printer for the beautiful header, and then print it
     p.set("LEFT", "B", "B", 2, 2)
@@ -165,17 +104,16 @@ def main():
     p.set("LEFT", "A", "normal", 1, 1)
     logging.debug("Unset the header printing style")
     
-    # Now let's fetch the more localized and up-to-date but raw data - with an accurate 'real' OS path?
-    p.image(os.path.join(os.path.realpath('resources/images/weather') + os.path.sep + wtypes[datapoint.fetchFrcWthrType(datapointcfg['ForecastLocation'],datapointcfg['DataPointKey'])]))
-    logging.debug("Printed the localized weather data image")
+    # Load all the plugins in the plugins list in the config file
+    for plugin in pluginlist:
+        pluginloader.init(plugin)
 
-    # And now we can find the text forecast from the Met Office's DataPoint API
-    p.text(datapoint.fetchRegionFrcAsText(datapointcfg['TextRegionCode'],datapointcfg['DataPointKey']))
-    logging.debug("Printed the regional weather text")
+    # Print all the things
+    pluginloader.printAllPlugins(p)
     
     # Cut the paper! Magic!
     p.cut()
-    logging.debug("Printed the localized weather data image")
+    logging.debug("Ended the print and cut the paper")
 
     # If we're in test mode, print the results to the screen
     if debugcfg['TestMode']:

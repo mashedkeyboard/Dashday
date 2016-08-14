@@ -8,16 +8,12 @@
 HelloMyNameIs = user
 Vendor = 0x04b8
 Product = 0x0202
-[Weather]
+[Plugins]
 # ---
-# Defaults:
-# TextRegionCode = 514 (London and South East)
-# ForecastLocation = 3672 (RAF Northolt)
-# DataPointKey = YourKeyHere (sign up for DataPoint at www.metoffice.gov.uk/datapoint and get a key)
+# Enter the names of the plugins you want to enable in here.
+# The source files need to be put in plugins/[pluginname]
 # ---
-TextRegionCode = 514
-ForecastLocation = 3672
-DataPointKey = YourKeyHere
+weather
 [Debug]
 # ---
 # Don't touch these unless you really know what you're doing.
