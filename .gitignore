@@ -61,3 +61,4 @@ ENV/
 /Dashday/dashday.log
 *.cfg
 /.vs/config/applicationhost.config
+*.pyperf

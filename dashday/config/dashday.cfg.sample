@@ -14,6 +14,13 @@ Product = 0x0202
 # The source files need to be put in plugins/[pluginname]
 # ---
 toload = weather
+[Schedule]
+# ---
+# Tells the scheduler when to run Dashday
+# for instance, the default is daily at 6am
+# TODO: Let the user configure not to have this printed daily
+# ---
+runat: 06:00
 [Debug]
 # ---
 # Don't touch these unless you really know what you're doing.

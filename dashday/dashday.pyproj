@@ -25,7 +25,10 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="dashday.py" />
+    <Compile Include="dashday.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="main.py" />
     <Compile Include="handlers.py">
       <SubType>Code</SubType>
     </Compile>
@@ -38,6 +41,30 @@
     </Compile>
     <Compile Include="plugins\weather\__init__.py" />
     <Compile Include="plugins\__init__.py" />
+    <Compile Include="runtests.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tests\configuration.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tests\printer.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tests\server.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tests\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="web\mtwsgi.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="web\serv.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="web\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="{2af0f10d-7135-4994-9156-5d01c9c11b7e}\3.5" />
@@ -63,14 +90,27 @@
     <Content Include="config\weather.cfg.sample" />
     <Content Include="requirements.txt" />
     <Content Include="config\weather.cfg" />
+    <Content Include="web\public\css\template.min.css" />
+    <Content Include="web\public\js\bootstrap.min.js" />
+    <Content Include="web\public\js\jquery.min.js" />
+    <Content Include="web\views\base\master.xhtml" />
+    <Content Include="web\views\index.xhtml" />
+    <Content Include="config\web.cfg" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="config\" />
+    <Folder Include="tests\" />
+    <Folder Include="web\" />
     <Folder Include="plugins\" />
     <Folder Include="plugins\weather\" />
     <Folder Include="resources\" />
     <Folder Include="resources\images\" />
     <Folder Include="resources\images\weather\" />
+    <Folder Include="web\public\" />
+    <Folder Include="web\public\css\" />
+    <Folder Include="web\public\js\" />
+    <Folder Include="web\views\" />
+    <Folder Include="web\views\base\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

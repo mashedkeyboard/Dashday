@@ -1,0 +1,14 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" py:extends="web/views/base/master.xhtml" py:strip="True">
+
+<head py:block="head" py:strip="True">
+    <title py:block="master_title">Dashday | home</title>
+</head>
+
+<body py:block="body" py:strip="True">
+    <h1>Dashday//home</h1>
+    <a class="btn btn-success btn-lg btn-block disabled">Dashday is active</a>
+    <a class="btn btn-default btn-block disabled">Next scheduled run: ${nextRun}</a>
+</body>
+</html>
