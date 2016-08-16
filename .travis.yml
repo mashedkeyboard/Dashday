@@ -5,7 +5,6 @@ python:
   - "3.5"
   - "3.5-dev"
   - "nightly"
-  - "pypy3"
 # goes to the right directory with all the actual files and that
 before_install: "cd dashday"
 # command to install dependencies
