@@ -11,9 +11,9 @@ global userconfig
 
 class RootController(TGController):
     @expose('web/views/index.xhtml')
-    def index(self,update = ''):
+    def index(self, update = '', reload = ''):
         global nextRunTime
-        return {'nextRun': nextRunTime, 'update': update}
+        return {'nextRun': nextRunTime, 'update': update, 'reload': reload}
 
     @expose('web/views/settings.xhtml')
     def settings(self):
@@ -28,7 +28,7 @@ class RootController(TGController):
                 'pprod': mainconfig["General"]["Product"]}
 
     @expose()
-    def changeTime(self,scheduleRun):
+    def changeTime(self, scheduleRun):
         mainconfig = configparser.ConfigParser()
         try:
             mainconfig.read('config/dashday.cfg')
@@ -41,7 +41,7 @@ class RootController(TGController):
         redirect('/', {'update': 'true'})
 
     @expose()
-    def changeGeneral(self,name,pvend,pprod):
+    def changeGeneral(self, name, pvend, pprod):
         mainconfig = configparser.ConfigParser()
         try:
             mainconfig.read('config/dashday.cfg')
@@ -54,6 +54,11 @@ class RootController(TGController):
             mainconfig.write(dashdaycfg)
         dashday.reload()
         redirect('/', {'update': 'true'})
+
+    @expose()
+    def reload(self):
+        dashday.reload()
+        redirect('/', {'reload': 'true'})
 
 def init():
     global userconfig

@@ -7,12 +7,41 @@
 </head>
 
 <body py:block="body" py:strip="True">
-    <h1>Dashday//home</h1>
+    <h1 class="text-muted">Dashday//home</h1>
+    <h4>Next scheduled run: ${nextRun}</h4>
+    <br />
     <div class="alert alert-dismissible alert-success" py:if="update == 'true'">
         <button class="close" type="button" data-dismiss="alert">&times;</button>
         <strong>Woot!</strong> Dashday configuration updated successfully.
     </div>
-    <a class="btn btn-success btn-lg btn-block disabled">Dashday is active</a>
-    <a class="btn btn-default btn-block disabled">Next scheduled run: ${nextRun}</a>
+    <div class="alert alert-dismissible alert-success" py:if="reload == 'true'">
+        <button class="close" type="button" data-dismiss="alert">&times;</button>
+        <strong>Woot!</strong> Dashday reloaded successfully.
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                <div class="box">
+                    <div class="box-icon">
+                        <span class="fa fa-4x fa-check"></span>
+                    </div>
+                    <div class="info">
+                        <h4 class="text-center">Dashday is <strong>active</strong></h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                <div class="box">
+                    <div class="box-icon box-icon-warn">
+                        <a class="fa fa-4x fa-refresh" href="/reload"></a>
+                    </div>
+                    <div class="info">
+                        <h4 class="text-center"><strong>Reload</strong> Dashday</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
