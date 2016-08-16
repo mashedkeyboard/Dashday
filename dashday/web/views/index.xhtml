@@ -8,6 +8,10 @@
 
 <body py:block="body" py:strip="True">
     <h1>Dashday//home</h1>
+    <div class="alert alert-dismissible alert-success" py:if="update == 'true'">
+        <button class="close" type="button" data-dismiss="alert">&times;</button>
+        <strong>Woot!</strong> Dashday configuration updated successfully.
+    </div>
     <a class="btn btn-success btn-lg btn-block disabled">Dashday is active</a>
     <a class="btn btn-default btn-block disabled">Next scheduled run: ${nextRun}</a>
 </body>

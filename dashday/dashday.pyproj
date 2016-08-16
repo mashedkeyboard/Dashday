@@ -90,10 +90,13 @@
     <Content Include="config\weather.cfg.sample" />
     <Content Include="requirements.txt" />
     <Content Include="config\weather.cfg" />
+    <Content Include="web\public\css\bootstrap-clockpicker.min.css" />
     <Content Include="web\public\css\template.min.css" />
+    <Content Include="web\public\js\bootstrap-clockpicker.min.js" />
     <Content Include="web\public\js\bootstrap.min.js" />
-    <Content Include="web\public\js\jquery.min.js" />
+    <Content Include="web\public\js\jquery-3.1.0.min.js" />
     <Content Include="web\views\base\master.xhtml" />
+    <Content Include="web\views\settings.xhtml" />
     <Content Include="web\views\index.xhtml" />
     <Content Include="config\web.cfg" />
   </ItemGroup>

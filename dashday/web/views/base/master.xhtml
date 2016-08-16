@@ -6,7 +6,11 @@
     <meta charset="${response.charset}" />
 
     <title py:block="master_title">Dashday</title>
+    <script type="text/javascript" src="${tg.url('/js/jquery-3.1.0.min.js')}"></script>
+    <script type="text/javascript" src="${tg.url('/js/bootstrap-clockpicker.min.js')}"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous" />
     <link rel="stylesheet" type="text/css" media="screen" href="${tg.url('/css/template.min.css')}" />
+    <link rel="stylesheet" type="text/css" media="screen" href="${tg.url('/css/bootstrap-clockpicker.min.css')}" />
 
     <py:block name="head"></py:block>
 </head>
@@ -22,11 +26,16 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="${tg.url('/')}">
+                <i class="fa fa-print"></i>
                 Dashday
             </a>
         </div>
 
-        <div class="collapse navbar-collapse" id="navbar-content">
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="/">Home</a></li>
+                <li><a href="/settings">Settings</a></li>
+            </ul>
         </div>
     </nav>
 
@@ -44,7 +53,6 @@
         </div>
     </footer>
 
-    <script type="text/javascript" href="${tg.url('/js/jquery.min.js')}"></script>
-    <script type="text/javascript" href="${tg.url('/js/bootstrap.min.js')}"></script>
+    <script type="text/javascript" src="${tg.url('/js/bootstrap.min.js')}"></script>
 </body>
 </html>

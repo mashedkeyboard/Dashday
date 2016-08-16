@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" py:extends="web/views/base/master.xhtml" py:strip="True">
+
+<head py:block="head" py:strip="True">
+    <title py:block="master_title">Dashday | settings</title>
+</head>
+
+<body py:block="body" py:strip="True">
+    <h1>Dashday//settings</h1>
+    <form class="form-horizontal" action="/changeGeneral" method="get">
+        <fieldset>
+            <legend>General</legend>
+            <div class="form-group">
+                <label class="col-lg-2 control-label" for="name">Name</label>
+                <div class="col-lg-10">
+                    <input class="form-control" id="name" name="name" type="text" value="${name}" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-2 control-label" for="pvend">Vendor ID</label>
+                <div class="col-lg-10">
+                    <input class="form-control" id="pvend" name="pvend" type="text" value="${pvend}" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-2 control-label" for="pprod">Product ID</label>
+                <div class="col-lg-10">
+                    <input class="form-control" id="pprod" name="pprod" type="text" value="${pprod}" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-10 col-lg-offset-2">
+                    <h5><a href="https://python-escpos.readthedocs.io/en/latest/user/usage.html#usb-printer">Confused about how to fill these in? Click here</a></h5>
+                    <button class="btn btn-default" type="reset">Cancel</button>
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+    <hr />
+    <form class="form-horizontal" action="/changeTime" method="get">
+        <fieldset>
+            <legend>Scheduling</legend>
+            <div class="form-group">
+                <label class="col-lg-2 control-label" for="timePicker">Daily run time</label>
+                <div class="col-lg-10">
+                    <div class="input-group clockpicker" data-placement="bottom" data-align="top" data-autoclose="true" id="timePicker">
+                        <input type="text" class="form-control" value="${runTime}" name="scheduleRun" />
+                        <span class="input-group-addon">
+                            <i class="fa fa-clock-o" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <script type="text/javascript">
+                $('.clockpicker').clockpicker();
+            </script>
+            <div class="form-group">
+                <div class="col-lg-10 col-lg-offset-2">
+                    <button class="btn btn-default" type="reset">Cancel</button>
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</body>
+</html>
