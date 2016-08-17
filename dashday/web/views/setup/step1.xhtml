@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" py:extends="web/views/base/setup.xhtml" py:strip="True">
+
+<head py:block="head" py:strip="True">
+    <title py:block="master_title">Dashday | let's get set up</title>
+</head>
+
+<body py:block="body" py:strip="True">
+    <form class="form-horizontal" action="doStep1" method="get">
+        <fieldset>
+            <legend>General</legend>
+            <div class="form-group">
+                <label class="col-lg-2 control-label" for="name">Name</label>
+                <div class="col-lg-10">
+                    <input class="form-control" id="name" name="name" type="text" placeholder="First name or nickname" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-2 control-label" for="pvend">Vendor ID</label>
+                <div class="col-lg-10">
+                    <input class="form-control" id="pvend" name="pvend" type="text" placeholder="0x04b8" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-2 control-label" for="pprod">Product ID</label>
+                <div class="col-lg-10">
+                    <input class="form-control" id="pprod" name="pprod" type="text" placeholder="0x0202" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-10 col-lg-offset-2">
+                    <h5><a href="https://python-escpos.readthedocs.io/en/latest/user/usage.html#usb-printer">Confused about how to fill these in? Click here</a></h5>
+                </div>
+            </div>
+        </fieldset>
+        <div class="btn-group btn-group-justified footer">
+            <a class="btn btn-success btn-lg btn-block" href="index"><i class="fa fa-chevron-left fa-2x pull-left"></i></a>
+            <a class="btn btn-success btn-lg btn-block disabled"></a>
+            <button class="btn btn-success btn-lg btn-block" type="submit"><i class="fa fa-chevron-right fa-2x pull-right"></i></button>
+        </div>
+    </form>
+</body>
+</html>

@@ -56,6 +56,9 @@
     <Compile Include="tests\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="plugins\weather\datapoint.py" />
+    <Compile Include="plugins\weather\main.py" />
+    <Compile Include="plugins\weather\__init__.py" />
     <Compile Include="web\mtwsgi.py">
       <SubType>Code</SubType>
     </Compile>
@@ -92,18 +95,27 @@
     <Content Include="config\weather.cfg" />
     <Content Include="web\public\css\bootstrap-clockpicker.min.css" />
     <Content Include="web\public\css\custom.css" />
+    <Content Include="web\public\css\multi-select.css" />
     <Content Include="web\public\css\template.min.css" />
     <Content Include="web\public\js\bootstrap-clockpicker.min.js" />
     <Content Include="web\public\js\bootstrap.min.js" />
     <Content Include="web\public\js\jquery-3.1.0.min.js" />
+    <Content Include="web\public\js\jquery.multi-select.js" />
+    <Content Include="web\views\base\setup.xhtml" />
     <Content Include="web\views\base\master.xhtml" />
+    <Content Include="web\views\plugins.xhtml" />
     <Content Include="web\views\settings.xhtml" />
     <Content Include="web\views\index.xhtml" />
     <Content Include="config\web.cfg" />
+    <Content Include="web\views\setup\step3.xhtml" />
+    <Content Include="web\views\setup\step2.xhtml" />
+    <Content Include="web\views\setup\step1.xhtml" />
+    <Content Include="web\views\setup\index.xhtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="config\" />
     <Folder Include="tests\" />
+    <Folder Include="plugins\weather\" />
     <Folder Include="web\" />
     <Folder Include="plugins\" />
     <Folder Include="plugins\weather\" />
@@ -115,6 +127,7 @@
     <Folder Include="web\public\js\" />
     <Folder Include="web\views\" />
     <Folder Include="web\views\base\" />
+    <Folder Include="web\views\setup\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

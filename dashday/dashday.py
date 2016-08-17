@@ -52,16 +52,17 @@ if __name__ == "__main__":
             configfile.read('config/dashday.cfg')
         except Exception as e:
             handlers.criterr("Permissions error on dashday.cfg. Please ensure you have write permissions for the directory.")
+        serv.init()
+        # Run the web server
+        thr = threading.Thread(target=serv.run)
+        thr.start()
+
+        # Runs the scheduler and all that jazz
+        thr = threading.Thread(target=runapp)
+        thr.start()
     else:
-        print("No configuration file found. Please configure Dashday.")
-        exit()
-
-    # Initialize and then run the web server
-    serv.init()
-
-    thr = threading.Thread(target=serv.run)
-    thr.start()
-
-    # Runs the scheduler and all that jazz
-    thr = threading.Thread(target=runapp)
-    thr.start()
+        print("Please configure Dashday! Visit http://localhost:9375/ to start the setup.")
+        serv.init(True)
+        # Run the web server
+        thr = threading.Thread(target=serv.run)
+        thr.start()
