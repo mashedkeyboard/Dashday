@@ -18,10 +18,8 @@ Dashday is written in **Python**, and compiled against 3.5, but should work with
 1. `git clone https://github.com/mashedkeyboard/Dashday.git dashday`
 2. `cd dashday/dashday`
 3. `pip install -r requirements.txt`
-4. `cd config`
-5. `cp dashday.cfg.sample dashday.cfg`
-6. Add your own values into dashday.cfg. To find your printer's vendor and product IDs, [use the python-escpos documentation](https://python-escpos.readthedocs.io/en/latest/user/usage.html#usb-printer). Note that at this time Dashday only supports USB printers.
-7. Run dashday.py! It should (hopefully) print out your report.
+4. Run dashday.py and browse to localhost:9375.
+5. Complete the setup with your own values. To find your printer's vendor and product IDs, [use the python-escpos documentation](https://python-escpos.readthedocs.io/en/latest/user/usage.html#usb-printer). Note that at this time Dashday only supports USB printers.
 
 ## What's all this about plugins?
 All the individual sections of the report are put into plugins - you can enable or disable whatever you want within the app. Individual plugin configuration files live within the /config directory, and the plugins themselves live within the /plugins one. If you want to build a plugin, take a look at the weather plugin for an example to go on.
