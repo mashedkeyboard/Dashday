@@ -1,13 +1,35 @@
 language: python
-python:
-  - "3.3"
-  - "3.4"
-  - "3.5"
-  - "3.5-dev"
-  - "nightly"
+matrix:
+  include:
+    - python: 2.7
+      env: TOXENV=py27
+    - python: 3.3
+      env: TOXENV=py33
+    - python: 3.4
+      env: TOXENV=py34
+    - python: 3.5
+      env: TOXENV=py35
+    - python: 3.5-dev
+      env: TOXENV=py35
+    - python: nightly
+      env: TOXENV=py36
+    - python: pypy
+      env: TOXENV=pypy
+    - python: pypy3
+      env: TOXENV=pypy3
+    - python: 2.7
+      env: TOXENV=docs
+  allow_failures:
+    - python: 2.7
+    - python: 3.5-dev
+    - python: nightly
+    - python: pypy3
 # goes to the right directory with all the actual files and that
-before_install: "cd dashday"
+before_install: cd dashday
 # command to install dependencies
-install: "pip install -r requirements.txt"
+install:
+    - pip install -r requirements.txt
+    - pip install codecov
 # command to run tests
-script: "nosetests runtests.py"
+script: nosetests runtests.py --with-coverage
+after_success: codecov
