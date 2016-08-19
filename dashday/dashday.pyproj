@@ -33,6 +33,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="pluginloader.py" />
+    <Compile Include="plugins\news\main.py" />
+    <Compile Include="plugins\news\__init__.py" />
     <Compile Include="plugins\weather\datapoint.py">
       <SubType>Code</SubType>
     </Compile>
@@ -114,6 +116,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="config\" />
+    <Folder Include="plugins\news\" />
     <Folder Include="tests\" />
     <Folder Include="plugins\weather\" />
     <Folder Include="web\" />
