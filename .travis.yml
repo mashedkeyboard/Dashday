@@ -6,11 +6,9 @@ matrix:
     - python: 3.5
     - python: 3.5-dev
     - python: nightly
-    - python: pypy3
   allow_failures:
     - python: 3.5-dev
     - python: nightly
-    - python: pypy3
 # goes to the right directory with all the actual files and that
 before_install: cd dashday
 # command to install dependencies
