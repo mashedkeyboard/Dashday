@@ -1,5 +1,5 @@
 # Dashday
-[![Build Status](https://travis-ci.org/mashedkeyboard/Dashday.svg?branch=master)](https://travis-ci.org/mashedkeyboard/Dashday)
+[![Build Status](https://travis-ci.org/mashedkeyboard/Dashday.svg?branch=master)](https://travis-ci.org/mashedkeyboard/Dashday)[![codecov](https://codecov.io/gh/mashedkeyboard/Dashday/branch/master/graph/badge.svg)](https://codecov.io/gh/mashedkeyboard/Dashday)
 
 Your day's dashboard, printed.
 
