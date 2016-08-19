@@ -19,7 +19,9 @@ def unload(name):
 # Runs an individual plugin print function
 def printPlugin(name,printer):
     try:
+        printer.control("CR")
         loadedPlugins[name].print(printer)
+        printer.control("CR")
     except Exception as e:
         handlers.err("running print for plugin " + name + " :: Exception raised :: " + str(e))
 
