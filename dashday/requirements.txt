@@ -1,10 +1,11 @@
 appdirs==1.4.0
 argcomplete==1.4.1
 crank==0.8.0
+feedparser==5.2.1
 Kajiki==0.5.5
 MarkupSafe==0.23
 nine==1.0.0
-Pillow==3.3.0
+pillow==3.3.0
 pyperclip==1.5.27
 pyserial==3.1.1
 python-escpos==2.1.3
