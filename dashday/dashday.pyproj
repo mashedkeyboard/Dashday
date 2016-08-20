@@ -75,7 +75,6 @@
     <InterpreterReference Include="{2af0f10d-7135-4994-9156-5d01c9c11b7e}\3.5" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="config\dashday.cfg" />
     <Content Include="config\dashday.cfg.sample" />
     <Content Include="dashday.log" />
     <Content Include="resources\images\weather\cloudy.png" />
@@ -94,7 +93,6 @@
     <Content Include="resources\images\weather\thunder.png" />
     <Content Include="config\weather.cfg.sample" />
     <Content Include="requirements.txt" />
-    <Content Include="config\weather.cfg" />
     <Content Include="web\public\css\bootstrap-clockpicker.min.css" />
     <Content Include="web\public\css\custom.css" />
     <Content Include="web\public\css\multi-select.css" />

@@ -9,7 +9,7 @@ def init():
 
 def print(p):
     global newsFeed
-    p.set("RIGHT", "B", "B", 1.5, 1.5)
+    p.set("RIGHT", "B", "B", 2, 2)
     p.text("News")
     p.set("LEFT", "A", "normal", 1, 1)
     for i, data in enumerate(newsFeed['items']):
