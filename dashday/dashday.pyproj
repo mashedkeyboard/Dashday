@@ -33,6 +33,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="pluginloader.py" />
+    <Compile Include="plugins\test\main.py" />
+    <Compile Include="plugins\test\__init__.py" />
     <Compile Include="plugins\news\main.py" />
     <Compile Include="plugins\news\__init__.py" />
     <Compile Include="plugins\weather\datapoint.py">
@@ -47,6 +49,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tests\configuration.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tests\plugins.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tests\printer.py">
@@ -115,6 +120,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="config\" />
+    <Folder Include="plugins\test\" />
     <Folder Include="plugins\news\" />
     <Folder Include="tests\" />
     <Folder Include="plugins\weather\" />

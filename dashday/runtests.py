@@ -2,7 +2,7 @@
 # Designed to be run by Travis CI. Should work for humans too, we suppose. But humans? Bleh.
 # Remember to set the DASHDAY_TESTMODE and DASHDAY_DPKEY env-vars before testing.
 
-import tests.configuration, tests.printer, tests.server
+import tests.configuration, tests.printer, tests.server, tests.plugins
 import main
 
 try:
@@ -29,6 +29,10 @@ try:
     # Run the test for the web server
     tests.server.testWebServer()
     print("Internal web server test passed")
+
+    # Run the plugin loader tests
+    tests.plugins.testLoadPlugin()
+    print("Plugin loader test passed")
 
     # Finally, run the actual Dashday script - this should be done with the testmode env-var
     main.start()
