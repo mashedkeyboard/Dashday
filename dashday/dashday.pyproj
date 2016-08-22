@@ -104,6 +104,7 @@
     <Content Include="web\views\base\setup.xhtml" />
     <Content Include="web\views\base\master.xhtml" />
     <Content Include="web\views\plugins.xhtml" />
+    <Content Include="web\views\pluginsettings.xhtml" />
     <Content Include="web\views\settings.xhtml" />
     <Content Include="web\views\index.xhtml" />
     <Content Include="config\web.cfg" />

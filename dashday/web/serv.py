@@ -86,43 +86,30 @@ class SetupController(TGController):
         dashday.reload()
         redirect('/', {'update': 'true'})
 
-class RootController(TGController):
-
-    @expose('web/views/index.xhtml')
-    def index(self, update = '', reload = ''):
-        global firstrun
-        if firstrun == True:
-            redirect('/setup/')
-        global nextRunTime
-        return {'nextRun': nextRunTime, 'update': update, 'reload': reload}
-
-    @expose('web/views/settings.xhtml')
-    def settings(self):
-        mainconfig = configparser.ConfigParser()
-        try:
-            mainconfig.read('config/dashday.cfg')
-        except PermissionError:
-            handlers.criterr("Permissions error on dashday.cfg. Please ensure you have write permissions for the directory.")
-        return {'runTime': mainconfig["Schedule"]["runat"],
-                'name': mainconfig["General"]["HelloMyNameIs"],
-                'pvend': mainconfig["General"]["Vendor"],
-                'pprod': mainconfig["General"]["Product"]}
+class PluginController(TGController):
+    mainconfig = configparser.ConfigParser()
 
     @expose('web/views/plugins.xhtml')
-    def plugins(self,enable = '',disable = '',delete = ''):
+    def index(self,enable = '',disable = '',delete = ''):
         def pclass(plugin,enabledlist):
             if plugin in enabledlist:
                 return {'class': 'success'}
             else:
                 return {'class': 'none'}
 
+        def pHasSettings(plugin):
+            pinfo = __import__('plugins.' + plugin,fromlist=plugin)
+            if pinfo.hasconfig == True:
+                return {}
+            else:
+                return {'class': 'disabled', 'disabled': 'true'} # returns disabled to disable the settings icon on the plugins page
+
         def getplugininfo(plugin):
             pinfo = __import__('plugins.' + plugin,fromlist=plugin)
             return {'name': pinfo.name,
                     'descrip': pinfo.description,
                     'version': pinfo.version,
-                    'author': pinfo.author,
-                    'cfgfile': pinfo.configfile}
+                    'author': pinfo.author}
 
         mainconfig = configparser.ConfigParser()
         try:
@@ -136,7 +123,29 @@ class RootController(TGController):
                 'getpinfo': getplugininfo,
                 'enable': enable,
                 'disable': disable,
-                'delete': delete}
+                'delete': delete,
+                'psclass': pHasSettings}
+
+    @expose('web/views/pluginsettings.xhtml')
+    def settings(self,pname,updated = None):
+        pinfo = __import__('plugins.' + pname,fromlist=pname)
+        if pinfo.hasconfig == True:
+            plugincfg = configparser.ConfigParser()
+            try:
+                plugincfg.read(pinfo.configfile)
+            except PermissionError:
+                handlers.criterr("Permissions error on plugin configuration file. Please ensure you have write permissions for the directory.")
+            return {'id': pname,
+                    'name': pinfo.name,
+                    'hasConfig': True,
+                    'configOpts': pinfo.configopts,
+                    'currentcfg': plugincfg,
+                    'updated': updated}
+        else:
+            return {'id': pname,
+                    'name': pinfo.name,
+                    'hasConfig': False,
+                    'updated': updated}
 
     @expose()
     def enablePlugin(self, pid):
@@ -178,6 +187,45 @@ class RootController(TGController):
         redirect('/plugins', {'disable': 'true'})
 
     @expose()
+    def changeSettings(self, pname, psect, **kw):
+        pinfo = __import__('plugins.' + pname,fromlist=pname)
+        if pinfo.hasconfig == True:
+            plugincfg = configparser.ConfigParser()
+            try:
+                plugincfg.read(pinfo.configfile)
+            except PermissionError:
+                handlers.criterr("Permissions error on plugin configuration file. Please ensure you have write permissions for the directory.")
+            for name, value in kw.items():
+                plugincfg[psect][name] = value
+            with open(pinfo.configfile, 'w') as configfile:
+                plugincfg.write(configfile)
+            redirect('/plugins/settings/' + pname, {'updated': 'true'})
+        else:
+            redirect('/plugins/settings/' + pname, {'updated': 'false'})
+
+class RootController(TGController):
+
+    @expose('web/views/index.xhtml')
+    def index(self, update = '', reload = ''):
+        global firstrun
+        if firstrun == True:
+            redirect('/setup/')
+        global nextRunTime
+        return {'nextRun': nextRunTime, 'update': update, 'reload': reload}
+
+    @expose('web/views/settings.xhtml')
+    def settings(self):
+        mainconfig = configparser.ConfigParser()
+        try:
+            mainconfig.read('config/dashday.cfg')
+        except PermissionError:
+            handlers.criterr("Permissions error on dashday.cfg. Please ensure you have write permissions for the directory.")
+        return {'runTime': mainconfig["Schedule"]["runat"],
+                'name': mainconfig["General"]["HelloMyNameIs"],
+                'pvend': mainconfig["General"]["Vendor"],
+                'pprod': mainconfig["General"]["Product"]}
+
+    @expose()
     def changeTime(self, scheduleRun):
         mainconfig = configparser.ConfigParser()
         try:
@@ -211,6 +259,7 @@ class RootController(TGController):
         redirect('/', {'reload': 'true'})
 
     setup = SetupController()
+    plugins = PluginController()
 
 def init(isfirst = False):
     global userconfig

@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" py:extends="web/views/base/master.xhtml" py:strip="True">
+
+<head py:block="head" py:strip="True">
+    <title py:block="master_title">Dashday | ${name} settings</title>
+</head>
+
+<body py:block="body" py:strip="True">
+    <h1 class="text-muted">Dashday//plugin settings//${name.lower()}</h1>
+    <div class="alert alert-dismissible alert-success" py:if="updated == 'true'">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Yay!</strong> Plugin configuration updated successfully.
+    </div>
+    <div class="alert alert-dismissible alert-danger" py:if="updated == 'false'">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Oh snap!</strong> We couldn't update those plugin settings. Time to fix something!
+    </div>
+    <py:if test="hasConfig == True">
+        <form class="form-horizontal" action="/plugins/changeSettings" method="get" py:for="section, content in configOpts.items()">
+            <fieldset>
+                <legend>${section}</legend>
+                <input class="hide" id="pname" name="pname" type="hidden" value="${id}" />
+                <input class="hide" id="psect" name="psect" type="hidden" value="${section}" />
+                <div class="form-group" py:for="item, label in content.items()">
+                    <label class="col-lg-2 control-label" for="name">${label}</label>
+                    <div class="col-lg-10">
+                        <input class="form-control" id="${item}" name="${item}" type="text" value="${currentcfg[section][item]}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-10 col-lg-offset-2">
+                        <button class="btn btn-default" type="reset">Cancel</button>
+                        <button class="btn btn-primary" type="submit">Submit</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </py:if>
+    <div class="alert alert-info" py:if="hasConfig != True">
+        <h4>Heads up!</h4>
+        <p>${name} has no configuration! No jobs for you to do here, head back :)</p>
+    </div>
+</body>
+</html>

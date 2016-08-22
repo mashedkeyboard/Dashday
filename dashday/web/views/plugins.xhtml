@@ -34,8 +34,8 @@
                 <td>${getpinfo(plugin)['name']}</td>
                 <td>${getpinfo(plugin)['version']}</td>
                 <td>${getpinfo(plugin)['descrip']}</td>
-                <td py:if="plugin in enabled"><a class="btn btn-success btn-sm" href="disablePlugin?pid=${plugin}"><i class="fa fa-times" aria-hidden="true"></i></a><a class="btn btn-success btn-sm" href="deletePlugin?pid=${plugin}"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
-                <td py:if="plugin not in enabled"><a class="btn btn-link btn-sm" href="enablePlugin?pid=${plugin}"><i class="fa fa-check" aria-hidden="true"></i></a><a class="btn btn-link btn-sm" href="deletePlugin?pid=${plugin}"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                <td py:if="plugin in enabled"><a class="btn btn-success btn-sm" href="plugins/disablePlugin?pid=${plugin}"><i class="fa fa-times" aria-hidden="true"></i></a><a class="btn btn-success btn-sm" href="plugins/deletePlugin?pid=${plugin}"><i class="fa fa-trash" aria-hidden="true"></i></a><a class="btn btn-success btn-sm" href="plugins/settings/${plugin}" py:attrs="psclass(plugin)"><i class="fa fa-cogs" aria-hidden="true"></i></a></td>
+                <td py:if="plugin not in enabled"><a class="btn btn-link btn-sm" href="plugins/enablePlugin?pid=${plugin}"><i class="fa fa-check" aria-hidden="true"></i></a><a class="btn btn-link btn-sm" href="plugins/deletePlugin?pid=${plugin}"><i class="fa fa-trash" aria-hidden="true"></i></a><a class="btn btn-link btn-sm" href="plugins/settings/${plugin}" py:attrs="psclass(plugin)"><i class="fa fa-cogs" aria-hidden="true"></i></a></td>
             </tr>
         </tbody>
     </table> 
