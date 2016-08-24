@@ -124,7 +124,7 @@ def main():
     logging.debug("Ended the print and cut the paper")
 
     # If we're in test mode, print the results to the screen
-    if debugcfg['TestMode']:
+    if debugcfg['TestMode'] == "1":
         print(str(p.output))
         logging.debug("Printed dummy output to stdout")
         logging.debug("Debug logging enabled, printing to log:") # this would only appear if they did have debug logging enabled so yeah
