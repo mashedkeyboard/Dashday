@@ -84,7 +84,7 @@ def main():
     # And let's start the logging!
     numeric_level = getattr(logging, debugcfg['LogLevel'].upper(), None)
     if not isinstance(numeric_level, int):
-        raise ValueError('Invalid log level: %s' % loglevel)
+        raise ValueError('Invalid log level: {0!s}'.format(loglevel))
     consoleHandler.setLevel(numeric_level)
     fileHandler.setLevel(numeric_level)
 
