@@ -11,12 +11,12 @@ def print(p):
     global newsFeed
     p.set("RIGHT", "B", "B", 2, 2)
     p.text("News")
-    p.set("LEFT", "A", "normal", 1, 1)
+    p.text("\n")
     for i, data in enumerate(newsFeed['items']):
-        if i > 4:
+        if i > 2:
             break
         else:
-            p.set("LEFT", "A", "B", 1, 1)
-            p.text(data['title'])
-            p.set("LEFT", "A", "normal", 1, 1)
-            p.text(data['summary'])
+            p.set(text_type="U")
+            p.text(data['title'] + "\n")
+            p.set(text_type="normal")
+            p.text(data['summary'] + "\n")

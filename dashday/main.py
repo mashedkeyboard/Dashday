@@ -103,7 +103,7 @@ def main():
 
 
     # Setup the printer for the beautiful header, and then print it
-    p.set("LEFT", "B", "B", 3, 3)
+    p.set(align="LEFT",text_type="B",width=2,height=2)
     logging.debug("Set the header printing style")
     p.text("Hello,\n" + maincfg['HelloMyNameIs'] + '\n\n')
     logging.debug("Printed the header")

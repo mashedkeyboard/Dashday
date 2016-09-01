@@ -49,7 +49,7 @@ def init():
 
 def print(p):
     # Now let's fetch the more localized and up-to-date but raw data - with an accurate 'real' OS path?
-    p.image(os.path.join(os.path.realpath('resources/images/weather') + os.path.sep + wtypes[datapoint.fetchFrcWthrType(weathercfg['ForecastLocation'],weathercfg['DataPointKey'])]))
+    p.image(os.path.join(os.path.realpath('resources/images/weather') + os.path.sep + wtypes[datapoint.fetchFrcWthrType(weathercfg['ForecastLocation'],weathercfg['DataPointKey'])]),impl="bitImageColumn")
     handlers.debug("Weather printed the localized weather data image")
 
     # And now we can find the text forecast from the Met Office's DataPoint API
