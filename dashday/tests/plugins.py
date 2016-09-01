@@ -13,5 +13,5 @@ def testLoadPlugin():
 
     p = printer.Dummy()
     pluginloader.printPlugin('test',p)
-    if p.output.decode("utf-8")  != "I am a test. This is a test. Testing stuff. Test. Ta!":
+    if p.output.decode("utf-8")  != "\nI am a test. This is a test. Testing stuff. Test. Ta!\n":
         raise escpos.Error("Can't print test plugin successfully. Output given: " + p.output.decode("utf-8"))
