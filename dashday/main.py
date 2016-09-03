@@ -112,7 +112,7 @@ def main():
     p.set("LEFT", "A", "normal", 1, 1)
     logging.debug("Unset the header printing style")
     
-    p.text(now.strftime("%a %d %b"))
+    p.text(datetime.datetime.now().strftime("%a %d %b"))
     
     # Load all the plugins in the plugins list in the config file
     for plugin in pluginlist:
