@@ -159,7 +159,7 @@ class PluginController(TGController):
             pluginlist.append(pid)
         else:
             pluginlist = [pid]
-        mainconfig['Plugins']['toload'] = ', '.join(pluginlist)
+        mainconfig['Plugins']['toload'] = ','.join(pluginlist)
         with open('config/dashday.cfg', 'w') as dashdaycfg:
             mainconfig.write(dashdaycfg)
         dashday.reload()
@@ -180,7 +180,7 @@ class PluginController(TGController):
             handlers.criterr("Permissions error on dashday.cfg. Please ensure you have write permissions for the directory.")
         pluginlist = mainconfig['Plugins']['toload'].split(',')
         pluginlist.remove(pid)
-        mainconfig['Plugins']['toload'] = ', '.join(pluginlist)
+        mainconfig['Plugins']['toload'] = ','.join(pluginlist)
         with open('config/dashday.cfg', 'w') as dashdaycfg:
             mainconfig.write(dashdaycfg)
         dashday.reload()
